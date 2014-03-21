@@ -33,3 +33,12 @@ set zsh as default shell
 
     vim
     :BundleInstall
+
+> all finished, have fun
+
+
+### come command for my vim plugin
+    
+    <c-p>: open ctrlp file search
+    <leader>ff: format javascript code
+    <F2>: open nerdtree 
