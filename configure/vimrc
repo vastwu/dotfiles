@@ -20,7 +20,6 @@ set ai
 set hls
 set helplang=cn
 set history=400
-
 "不自动创建备份文件
 set nobackup 
 set noswapfile 
@@ -57,12 +56,11 @@ Bundle 'gmarik/vundle'
 Bundle 'WinManager'
 Bundle 'scrooloose/nerdtree'
 Bundle 'neocomplcache'
-Bundle 'vim-powerline'
+Bundle 'bling/vim-airline'
 Bundle 'surround.vim'
 Bundle 'ctrlp.vim'
 Bundle 'jsbeautify'
 Bundle 'molokai'
-"Bundle 'sourcebeautify'
 filetype plugin indent on     " required!
 "
 " Brief help  -- 此处后面都是vundle的使用命令
@@ -87,9 +85,8 @@ colorscheme molokai
 "    let g:ctrlp_user_command = 'find %s -type f'
 " }
 
-"powerline {
-    set guifont=PowerlineSymbols\ for\ Powerline
-    left g:Powerline_symbols = 'fancy'
+"airline {
+    let g:airline_theme = 'badwolf'
 "}
 
 "Nerdtree{ 
