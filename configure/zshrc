@@ -51,10 +51,14 @@ plugins=(git vundle autojump)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+alias tmux="tmux -2" #256 colors for tmux
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
-LANG=C
-#[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
+LANG=zh_CN.UTF-8
+LC_ALL=zh_CN.UTF-8
+LANGUAGE=en_US:en
+
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # # Preferred editor for local and remote sessions

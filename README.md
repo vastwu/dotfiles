@@ -45,7 +45,7 @@ set zsh as default shell
 use `j dir` fast and auto jump to the path, the path must be visit before
 
     //linux
-    sudo-apt install autojump
+    sudo apt-get install autojump
 
     //mac
     brew autojump
@@ -63,6 +63,45 @@ example:
 * now i am in `~/` dir
 * i can input `j dot` to the currect path
 * maybe same name dir name, i can use like that `j code dot`
+
+### tmux
+
+    sudo apt-get install tmux
+    
+[a helpful blog about how to use tmux](http://foocoder.com/blog/zhong-duan-huan-jing-zhi-tmux.html/)
+
+all tmux command must press `<C-b>` first
+
+when on shell, 
+
+`tmux` create a tmux session
+`tmux ls` display all session
+`tmux attach [-t sessionname]` back to prev session or enter another session by sessionname
+`tmux kill-session [-t sessionname]` kill session
+
+#### session
+    `?` display bind-key
+    `d` deattch session
+    `<c-z>` sleep session, `fg` wake up session
+    `$` rename session
+
+#### window
+
+    `c` create new window
+    `b` rename current window
+    `&` close current window
+    `w` display all windows number, change
+    `f` window search
+
+#### pane
+
+    `s` split for create pane
+    `v` vertical split for create pane
+    `h,j,k,l` change pane like vim
+    `x` close current pano (need confirm)
+
+
+
 
 
 ### come command for my vim plugin
