@@ -80,25 +80,26 @@ when on shell,
 `tmux kill-session [-t sessionname]` kill session
 
 #### session
-    `?` display bind-key
-    `d` deattch session
-    `<c-z>` sleep session, `fg` wake up session
-    `$` rename session
+
+* `?` display bind-key
+* `d` deattch session
+* `<c-z>` sleep session, `fg` wake up session
+* `$` rename session
 
 #### window
 
-    `c` create new window
-    `b` rename current window
-    `&` close current window
-    `w` display all windows number, change
-    `f` window search
+* `c` create new window
+* `b` rename current window
+* `&` close current window
+* `w` display all windows number, change
+* `f` window search
 
 #### pane
 
-    `s` split for create pane
-    `v` vertical split for create pane
-    `h,j,k,l` change pane like vim
-    `x` close current pano (need confirm)
+ * `s` split for create pane
+ * `v` vertical split for create pane
+ * `h,j,k,l` change pane like vim
+ * `x` close current pano (need confirm)
 
 
 
