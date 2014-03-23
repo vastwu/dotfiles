@@ -46,7 +46,7 @@ alias zshconfig="vim ~/.zshrc"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git vundle autojump)
+plugins=(git vundle autojump tmux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -58,7 +58,8 @@ LANG=zh_CN.UTF-8
 LC_ALL=zh_CN.UTF-8
 LANGUAGE=en_US:en
 
-
+unset TMUX
+tmux new-session -s base
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # # Preferred editor for local and remote sessions
