@@ -88,24 +88,23 @@ when on shell,
 
 #### window
 
-* `c` create new window
+* `t` create new window
+* `d` close current window
 * `b` rename current window
-* `&` close current window
 * `w` display all windows number, change
 * `f` window search
 
 #### pane
-
- * `s` split for create pane
- * `v` vertical split for create pane
- * `h,j,k,l` change pane like vim
- * `x` close current pano (need confirm)
-
+* `c` close current pane
+* `s` split for new pane
+* `v` vertical split for new pane
+* `h,j,k,l` select pane like vim
 
 
 
 
-### come command for my vim plugin
+
+### some command for my vim plugin
     
     <c-p>: open ctrlp file search
     <F2>: open nerdtree 
