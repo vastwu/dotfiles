@@ -12,7 +12,7 @@ set expandtab
 set noautoindent
 set rnu
 set nowrap
-set clipboard=unnamed
+"set clipboard=unnamed
 set autoread
 set autowriteall
 set fileencodings=utf-8,gbk
