@@ -63,6 +63,8 @@ Bundle 'surround.vim'
 Bundle 'ctrlp.vim'
 Bundle 'jsbeautify'
 Bundle 'molokai'
+Bundle 'mattn/emmet-vim'
+Bundle 'rking/ag.vim'
 filetype plugin indent on     " required!
 "
 " Brief help  -- 此处后面都是vundle的使用命令
@@ -70,7 +72,15 @@ filetype plugin indent on     " required!
 " :BundleInstall(!)    - install(update) bundles
 " :BundleSearch(!) foo - search(or refresh cache first) for foo
 " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-"
+
+
+
+
+"ag.vim{
+    nnoremap <F3> :Ag 
+
+"}
+
 colorscheme molokai
 " jsbeautify {
 "   <leader> ff
