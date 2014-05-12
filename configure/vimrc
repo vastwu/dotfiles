@@ -12,6 +12,7 @@ set expandtab
 set noautoindent
 set rnu
 set nowrap
+set ignorecase
 "set clipboard=unnamed
 set autoread
 set autowriteall
@@ -25,6 +26,7 @@ set history=400
 "不自动创建备份文件
 set nobackup 
 set noswapfile 
+set background=light
 "快捷命令
 nnoremap <silent> <F5> :!open % <cr> 
 
@@ -65,6 +67,7 @@ Bundle 'jsbeautify'
 Bundle 'molokai'
 Bundle 'mattn/emmet-vim'
 Bundle 'rking/ag.vim'
+Bundle 'heavenshell/vim-jsdoc'
 filetype plugin indent on     " required!
 "
 " Brief help  -- 此处后面都是vundle的使用命令
@@ -73,15 +76,21 @@ filetype plugin indent on     " required!
 " :BundleSearch(!) foo - search(or refresh cache first) for foo
 " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 
-
-
+"jsdoc{
+    let g:jsdoc_default_mapping=0
+    let g:jsdoc_additional_descriptions=0
+    nnoremap <F6> :JsDoc<cr> 
+"}
 
 "ag.vim{
     nnoremap <F3> :Ag 
-
+    let g:aghighlight=1
+    let g:agprg="ag --colum --smart-case"
 "}
 
 colorscheme molokai
+" make vim background transparen
+hi Normal ctermfg=252 ctermbg=none
 " jsbeautify {
 "   <leader> ff
     "nnoremap <silent> <leader>ff :call g:Jsbeautify()<cr>
