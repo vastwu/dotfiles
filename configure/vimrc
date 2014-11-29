@@ -11,6 +11,7 @@ set smartindent
 set expandtab   
 set noautoindent
 set rnu
+set incsearch
 set nowrap
 set ignorecase
 "set clipboard=unnamed
@@ -124,7 +125,7 @@ hi Normal ctermfg=252 ctermbg=none
 
 "Neocomplcache{
 
-let g:neocomplcache_enable_at_startup = 1
+    let g:neocomplcache_enable_at_startup = 1
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS

@@ -46,7 +46,7 @@ alias zshconfig="vim ~/.zshrc"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git vundle autojump)
+plugins=(git svn vundle autojump frontend-search web-search)
 
 source $ZSH/oh-my-zsh.sh
 

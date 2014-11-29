@@ -33,5 +33,7 @@ bind u:${hyper} ${full}
 bind r:${hyper} relaunch
 
 #Fast Launch
+bind h:alt focus '百度Hi'
+bind d:alt focus 'Developer Tools'
 bind c:alt focus 'Google Chrome'
 bind q:alt focus 'QQ'
