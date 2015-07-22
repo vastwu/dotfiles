@@ -46,14 +46,14 @@ alias zshconfig="vim ~/.zshrc"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git svn vundle autojump frontend-search web-search)
+plugins=(git svn vundle z frontend-search web-search)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 #alias tmux="tmux -2" #256 colors for tmux
 
-export PATH=$HOME/.shell:/usr/local/bin:$PATH
+export PATH=$HOME/.shell:$HOME/bin:/usr/local/bin:$PATH
 LANG=zh_CN.UTF-8
 LC_ALL=zh_CN.UTF-8
 LANGUAGE=en_US:en
