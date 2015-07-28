@@ -1,8 +1,8 @@
 (function(){
 	var toNumber = function(a){
-        return a * 1;
+		return a * 1;
 	}
-	var splitFormula = function(formula){
+    var splitFormula = function(formula){
 		formula = formula.match(/[\(\)\*\/+-\.\d*?]/g);
 		var result = [], v;
 		var readIndex = 0;
