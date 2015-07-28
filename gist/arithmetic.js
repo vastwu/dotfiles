@@ -1,6 +1,6 @@
 (function(){
 	var toNumber = function(a){
-		return a * 1;
+        return a * 1;
 	}
 	var splitFormula = function(formula){
 		formula = formula.match(/[\(\)\*\/+-\.\d*?]/g);
@@ -47,7 +47,7 @@
 		return n !== ' ' && isNumber(n * 1);
 	};
 	var calculate = {
-		add: function(a, b){
+        add: function(a, b){
 			return a + b;
 		},	
 		sub: function(a, b){
