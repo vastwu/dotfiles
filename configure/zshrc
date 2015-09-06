@@ -53,7 +53,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 #alias tmux="tmux -2" #256 colors for tmux
 
-export PATH=$HOME/.shell:/usr/local/bin:$PATH
+export PATH=$HOME/.shell:$HOME/bin:/usr/local/bin:$PATH
 # for slimerjslauncher
 export SLIMERJSLAUNCHER=/Applications/Firefox.app/Contents/MacOS/firefox
 export SLIMERDIR=/Users/vastwu/code/demo/slimerjs/slimerjs-lib
@@ -77,4 +77,4 @@ LANGUAGE=en_US:en
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
-. <(npm completion)
+#. <(npm completion)
