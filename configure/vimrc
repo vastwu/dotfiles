@@ -1,4 +1,4 @@
-let $LANG = 'en'  "set message language  
+let $LANG = 'en'  "set message language
 set langmenu=en   "set menu's language of gvim. no spaces beside '='  Configuration file for vim
 set modelines=0		" CVE-2007-2438
 set t_Co=256
@@ -6,9 +6,10 @@ set number
 set laststatus=2
 set tabstop=4
 set shiftwidth=4
+set softtabstop=4
 set showtabline=2
 set smartindent
-set expandtab   
+set expandtab
 set noautoindent
 set rnu
 set incsearch
@@ -25,11 +26,11 @@ set hls
 set helplang=cn
 set history=400
 "不自动创建备份文件
-set nobackup 
-set noswapfile 
+set nobackup
+set noswapfile
 set background=light
 "快捷命令
-nnoremap <silent> <F5> :!open % <cr> 
+nnoremap <silent> <F5> :!open % -a Sublime\ Text<cr>
 
 set cursorline
 " Normally we use vim-extensions. If you want true vi-compatibility
@@ -43,7 +44,7 @@ syntax on
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 " let Vundle manage Vundle
-" required! 
+" required!
 Bundle 'gmarik/vundle'
 " My Bundles here:
 "
@@ -69,6 +70,11 @@ Bundle 'molokai'
 Bundle 'mattn/emmet-vim'
 Bundle 'rking/ag.vim'
 Bundle 'heavenshell/vim-jsdoc'
+Bundle 'ActionScript'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+"Bundle 'hushicai/fecs.vim.git'
+"Bundle 'scrooloose/syntastic'
 filetype plugin indent on     " required!
 "
 " Brief help  -- 此处后面都是vundle的使用命令
@@ -80,11 +86,11 @@ filetype plugin indent on     " required!
 "jsdoc{
     let g:jsdoc_default_mapping=0
     let g:jsdoc_additional_descriptions=0
-    nnoremap <F6> :JsDoc<cr> 
+    nnoremap <F6> :JsDoc<cr>
 "}
 
 "ag.vim{
-    nnoremap <F3> :Ag 
+    nnoremap <F3> :Ag<space>
     let g:aghighlight=1
     let g:agprg="ag --colum --smart-case"
 "}
@@ -100,7 +106,8 @@ hi Normal ctermfg=252 ctermbg=none
 "ctrl.vim{
     let g:ctrlp_map = '<c-p>'
     let g:ctrlp_cmd = 'CtrlP'
-    let g:ctrlp_working_path_mode = 'ra'
+    let g:ctrlp_working_path_mode = 'w'
+    let g:ctrlp_by_filename = '1'
     let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|npm)$'
     let g:ctrlp_open_new_file = 't'
     let g:ctrlp_clear_cache_on_exit = 0
@@ -111,16 +118,16 @@ hi Normal ctermfg=252 ctermbg=none
     let g:airline_theme = 'badwolf'
 "}
 
-"Nerdtree{ 
-    let g:NERDTree_title="[NERDTree]"  
+"Nerdtree{
+    let g:NERDTree_title="[NERDTree]"
     let g:NERTreeWinPos='left'
-    function! NERDTree_Start()  
-        exec 'NERDTree'  
-    endfunction  
-          
-    function! NERDTree_IsValid()  
-            return 1  
-    endfunction  
+    function! NERDTree_Start()
+        exec 'NERDTree'
+    endfunction
+
+    function! NERDTree_IsValid()
+            return 1
+    endfunction
 "}
 
 "Neocomplcache{
@@ -133,14 +140,30 @@ hi Normal ctermfg=252 ctermbg=none
 "}
 
 "Winmanager {
-    "let g:winManagerWindowLayout="NERDTree|TagList"  
-    "let g:winManagerWidth = 30                  
+    "let g:winManagerWindowLayout="NERDTree|TagList"
+    "let g:winManagerWidth = 30
     "let g:defaultExplorer = 0    "Don't write backup file if vim is being called by "crontab -e"
     "let g:persistentBehaviour = 0
     noremap <F2> :NERDTreeToggle<cr>
     ":nmap <C-K> <C-W>w
     " open nerdtree when vim enter
     ":autocmd BufEnter *.* :set rnu
+"}
+
+"actionscript{
+    au BufNewFile,BufRead *.as setf actionscript
+"}
+"syntastic & fecs{
+    let g:syntastic_check_on_open = 0
+    let g:syntastic_check_on_wq = 0
+    let g:syntastic_javascript_checkers = ['fecs']
+    lef g:syntastic_javascript_fecs_args = "--reporter=baidu"
+    let g:syntastic_error_symbol = "✗"
+    let g:syntastic_warning_symbol = "⚠"
+"}
+"vim-markdown{
+    let g:vim_markdown_frontmatter=1
+    let g:vim_markdown_math=1
 "}
 
 "color config
@@ -153,3 +176,9 @@ hi Pmenu ctermfg=white ctermbg=017
 au BufWrite /private/tmp/crontab.* set nowritebackup
 " Don't write backup file if vim is being called by "chpass"
 au BufWrite /private/etc/pw.* set nowritebackup
+
+" remove ^M
+au BufWrite *.js ks|execute ":%s/\r$//ge"|'s
+" remove line end space when save file
+au BufWrite *.js ks|execute ":%s/\\s*$//ge"|'s
+
