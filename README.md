@@ -17,6 +17,10 @@ we have to add a third-party PPA. Do this for a successful installation
 
     sudo apt-get install zsh
 
+or
+
+    wget http://www.zsh.org/pub/zsh-5.1.1.tar.gz
+
 ### install oh-my-zsh
 
 download
@@ -67,6 +71,10 @@ example:
 ### tmux
 
     sudo apt-get install tmux
+
+or
+
+    wget http://downloads.sourceforge.net/project/tmux/tmux/tmux-2.0/tmux-2.0.tar.gz
     
 [a helpful blog about how to use tmux](http://foocoder.com/blog/zhong-duan-huan-jing-zhi-tmux.html/)
 
