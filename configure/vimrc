@@ -30,6 +30,8 @@ set history=400
 set nobackup
 set noswapfile
 set background=light
+"粘贴模式切换
+set pastetoggle=<F9>
 "快捷命令
 nnoremap <silent> <F5> :!open % -a Sublime\ Text<cr>
 
@@ -61,7 +63,7 @@ Bundle 'gmarik/vundle'
 "Bundle 'genutils.vim'
 Bundle 'WinManager'
 Bundle 'scrooloose/nerdtree'
-Bundle 'neocomplcache'
+"Bundle 'neocomplcache'
 Bundle 'bling/vim-airline'
 Bundle 'surround.vim'
 Bundle 'ctrlp.vim'
@@ -76,8 +78,10 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'vim-stylus'
 Plugin 'jade.vim'
-"Bundle 'hushicai/fecs.vim.git'
-"Bundle 'scrooloose/syntastic'
+Plugin 'marijnh/tern_for_vim'
+Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Conque-Shell'
+Plugin 'Tagbar'
 syntax enable
 syntax on
 filetype plugin indent on     " required!
@@ -88,17 +92,18 @@ filetype plugin indent on     " required!
 " :BundleSearch(!) foo - search(or refresh cache first) for foo
 " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 
-"jsdoc{
+"tagbar
+  nmap <F8> :TagbarToggle<CR>
+
+"jsdoc
     let g:jsdoc_default_mapping=0
     let g:jsdoc_additional_descriptions=0
     nnoremap <F6> :JsDoc<cr>
-"}
 
-"ag.vim{
+"ag.vim
     nnoremap <F3> :Ag<space>
     let g:aghighlight=1
     let g:agprg="ag --colum --smart-case"
-"}
 
 colorscheme molokai
 " make vim background transparen
@@ -108,6 +113,37 @@ hi Normal ctermfg=252 ctermbg=none
     "nnoremap <silent> <leader>ff :call g:Jsbeautify()<cr>
 "    nnoremap <silent> =G :call g:Jsbeautify()<cr>
 " }
+" YouCompleteMe {
+let g:ycm_min_num_of_chars_for_completion = 3
+let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_complete_in_comments = 1
+let g:ycm_key_list_select_completion = ['<c-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
+let g:ycm_semantic_triggers =  {
+  \   'perl' : ['->'],
+  \   'php' : ['->', '::'],
+  \   'cs,java,javascript,typescript,coffeeecript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+  \   'ruby' : ['.', '::'],
+  \   'erlang' : [':'],
+  \ }
+" 比较喜欢用tab来选择补全...
+function! MyTabFunction ()
+  let line = getline('.')
+  let substr = strpart(line, -1, col('.')+1)
+  let substr = matchstr(substr, "[^ \t]*$")
+  if strlen(substr) == 0
+    return "\<tab>"
+  endif
+  return pumvisible() ? "\<c-n>" :
+  "\<c-x>\<c-o>"
+endfunction
+inoremap <tab> <c-r>=MyTabFunction()<cr>
+
+:setlocal omnifunc=tern#Complete
+"call tern#Enable()
+":runtime after/ftplugin/javascript_tern.vim
+
+
 "ctrl.vim{
     let g:ctrlp_map = '<c-p>'
     let g:ctrlp_cmd = 'CtrlP'
@@ -157,14 +193,6 @@ hi Normal ctermfg=252 ctermbg=none
 
 "actionscript{
     au BufNewFile,BufRead *.as setf actionscript
-"}
-"syntastic & fecs{
-    let g:syntastic_check_on_open = 0
-    let g:syntastic_check_on_wq = 0
-    let g:syntastic_javascript_checkers = ['fecs']
-    lef g:syntastic_javascript_fecs_args = "--reporter=baidu"
-    let g:syntastic_error_symbol = "✗"
-    let g:syntastic_warning_symbol = "⚠"
 "}
 "vim-markdown{
     let g:vim_markdown_frontmatter=1

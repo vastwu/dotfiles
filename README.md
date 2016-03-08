@@ -17,10 +17,6 @@ we have to add a third-party PPA. Do this for a successful installation
 
     sudo apt-get install zsh
 
-or
-
-    wget http://www.zsh.org/pub/zsh-5.1.1.tar.gz
-
 ### install oh-my-zsh
 
 download
@@ -44,37 +40,30 @@ set zsh as default shell
 
 ## EXTENSION
 
-### autojump
+### YouCompleteMe + tern
 
-use `j dir` fast and auto jump to the path, the path must be visit before
+#### download plugins by vundle
 
-    //linux
-    sudo apt-get install autojump
+add that in `.vimrc`
+```
+Plugin 'marijnh/tern_for_vim'
+Plugin 'Valloric/YouCompleteMe'
+...
+:setlocal omnifunc=tern#Complete
+call tern#Enable()
+:runtime after/ftplugin/javascript_tern.vim
+```
+run `BundleInstall`
 
-    //mac
-    brew autojump
+> `youcompleteme` needs cmake for compile（sudo brew install CMake）
 
-    //install by source
-    git clone git://github.com/joelthelion/autojump.git
-    cd autojump
-    ./install.py
-
-then restart shell
-
-example:
-
-* i visit path for `/home/vast/code/git/dotfiles` before
-* now i am in `~/` dir
-* i can input `j dot` to the currect path
-* maybe same name dir name, i can use like that `j code dot`
+#### configure
+* [http://blog.jobbole.com/58978/](http://blog.jobbole.com/58978/)
+* [http://efe.baidu.com/blog/vim-javascript-completion/](http://efe.baidu.com/blog/vim-javascript-completion/)
 
 ### tmux
 
     sudo apt-get install tmux
-
-or
-
-    wget http://downloads.sourceforge.net/project/tmux/tmux/tmux-2.0/tmux-2.0.tar.gz
     
 [a helpful blog about how to use tmux](http://foocoder.com/blog/zhong-duan-huan-jing-zhi-tmux.html/)
 

@@ -61,6 +61,7 @@ LANG=zh_CN.UTF-8
 LC_ALL=zh_CN.UTF-8
 LANGUAGE=en_US:en
 
+bindkey -v
 #unset TMUX
 #tmux -2 new-session -s base
 # export MANPATH="/usr/local/man:$MANPATH"
