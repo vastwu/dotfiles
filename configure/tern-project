@@ -1,0 +1,13 @@
+{
+  "libs": [
+    "browser",
+    "jquery"
+  ],
+  "plugins": {
+    "node": {},
+    "node_resolve": {},
+    "modules": {},
+    "requirejs": {},
+    "complete_strings":{}
+  }
+}

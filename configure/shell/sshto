@@ -1,0 +1,38 @@
+#!/bin/bash
+
+
+list=(
+  wusen@10.103.16.10
+  worker@10.103.16.14
+  services@10.101.1.183
+  worker@10.101.1.97
+  worker@10.101.1.98
+  worker@10.101.1.117
+  worker@10.101.1.64
+  worker@10.101.1.38
+)
+
+echo "---------------"
+for i in ${list[@]}  
+do  
+  index=$((index+1))
+  echo "    [$index]  $i"
+done 
+echo "---------------"
+
+#docker ps|awk '{print $NF}'
+echo -n "which ip you want [ 1 - $index ]："
+read to_index
+#echo "index: $to_index"
+
+index=0
+for i in ${list[@]}  
+do  
+  index=$((index+1))
+  if [ $index = "$to_index" ]; then 
+    #echo $i
+    #docker exec -ti $i /bin/bash
+    ssh $i
+  fi
+done 
+
