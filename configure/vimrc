@@ -33,7 +33,19 @@ set background=light
 "粘贴模式切换
 set pastetoggle=<F9>
 "快捷命令
-nnoremap <silent> <F5> :!open % -a Sublime\ Text<cr>
+"nnoremap <silent> <F5> :!open % -a Sublime\ Text<cr>
+nnoremap <silent> <F5> :call OpenFile()<cr>
+function OpenFile()
+  let ext = expand("%:e")
+  let filename = "%"
+  "echo ext
+  "echo filename
+  if ext == 'md' 
+    exec "!open -a Markdown\\ Plus %"
+  else
+    exec "!open -a Sublime\\ Text %"
+  endif
+endfunction
 
 set cursorline
 " Normally we use vim-extensions. If you want true vi-compatibility
@@ -42,6 +54,11 @@ set nocompatible	" Use Vim defaults instead of 100% vi compatibility
 set backspace=2		" more powerful backspacing
 nnoremap <C-l> gt
 nnoremap <C-h> gT
+
+vmap y :w !pbcopy<CR><CR>
+nmap yy :.w !pbcopy<CR><CR>
+nmap p :r !pbpaste<CR><CR>
+
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
