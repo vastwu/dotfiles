@@ -55,9 +55,12 @@ set backspace=2		" more powerful backspacing
 nnoremap <C-l> gt
 nnoremap <C-h> gT
 
-vmap y :w !pbcopy<CR><CR>
-nmap yy :.w !pbcopy<CR><CR>
-nmap p :r !pbpaste<CR><CR>
+"vmap y :w !pbcopy<CR><CR>
+"nmap yy :.w !pbcopy<CR><CR>
+"nmap p :r !pbpaste<CR><CR>
+
+vmap "+y :w !pbcopy<CR><CR> 
+nmap "+p :r !pbpaste<CR><CR> 
 
 filetype off
 set rtp+=~/.vim/bundle/vundle/
@@ -74,31 +77,30 @@ Bundle 'gmarik/vundle'
 "Bundle 'git://git.wincent.com/command-t.git'
 "
 " original repos on github
-"Bundle 'tpope/vim-fugitive'
-"Bundle 'Lokaltog/vim-easymotion'
-"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-"Bundle 'genutils.vim'
+
 Bundle 'WinManager'
 Bundle 'scrooloose/nerdtree'
 "Bundle 'neocomplcache'
 Bundle 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Bundle 'surround.vim'
 Bundle 'ctrlp.vim'
 Bundle 'jsbeautify'
 Bundle 'molokai'
 Bundle 'mattn/emmet-vim'
 Bundle 'rking/ag.vim'
-Bundle 'heavenshell/vim-jsdoc'
-Bundle 'ActionScript'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'vim-stylus'
 Plugin 'jade.vim'
 Plugin 'marijnh/tern_for_vim'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'roxma/nvim-completion-manager'
+Plugin 'posva/vim-vue'
+Plugin 'digitaltoad/vim-pug'
 "Plugin 'Conque-Shell'
 Plugin 'Tagbar'
+
 syntax enable
 syntax on
 filetype plugin indent on     " required!
@@ -119,30 +121,12 @@ filetype plugin indent on     " required!
 
 "ag.vim
     nnoremap <F3> :Ag<space>
-    let g:aghighlight=1
-    let g:agprg="ag --colum --smart-case"
+    let g:ag_highlight=1
+    let g:ag_prg="ag --colum --smart-case"
 
 colorscheme molokai
 " make vim background transparen
 hi Normal ctermfg=252 ctermbg=none
-" jsbeautify {
-"   <leader> ff
-    "nnoremap <silent> <leader>ff :call g:Jsbeautify()<cr>
-"    nnoremap <silent> =G :call g:Jsbeautify()<cr>
-" }
-" YouCompleteMe {
-let g:ycm_min_num_of_chars_for_completion = 3
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_complete_in_comments = 1
-let g:ycm_key_list_select_completion = ['<c-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
-let g:ycm_semantic_triggers =  {
-  \   'perl' : ['->'],
-  \   'php' : ['->', '::'],
-  \   'cs,java,javascript,typescript,coffeeecript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-  \   'ruby' : ['.', '::'],
-  \   'erlang' : [':'],
-  \ }
 " 比较喜欢用tab来选择补全...
 function! MyTabFunction ()
   let line = getline('.')
@@ -166,14 +150,15 @@ inoremap <tab> <c-r>=MyTabFunction()<cr>
     let g:ctrlp_cmd = 'CtrlP'
     let g:ctrlp_working_path_mode = 'w'
     let g:ctrlp_by_filename = '1'
-    let g:ctrlp_custom_ignore = '\v[\/](node_modules|build)|(\.(swp|ico|git|svn))$'
+    let g:ctrlp_custom_ignore = '\v[\/](node_modules|build|webuiTest)|(\.(swp|ico|git|svn))$'
     let g:ctrlp_open_new_file = 't'
     let g:ctrlp_clear_cache_on_exit = 1
 "    let g:ctrlp_user_command = 'find %s -type f'
 " }
 
 "airline {
-    let g:airline_theme = 'badwolf'
+    let g:Airline_theme = 'solarized'
+    let g:airline_solarized_bg = 'dark'
 "}
 
 "Nerdtree{
@@ -236,3 +221,6 @@ au BufWrite *.js ks|execute ":%s/\r$//ge"|'s
 " remove line end space when save file
 au BufWrite *.js ks|execute ":%s/\\s*$//ge"|'s
 
+" wxss使用css高量，wxml使用html高亮
+au BufNewFile,BufRead *.wxss setf css
+au BufNewFile,BufRead *.wxml setf html
