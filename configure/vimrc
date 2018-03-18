@@ -164,48 +164,46 @@ let mapleader=","
   nnoremap <leader>yd :YcmCompleter GoToDefinition<CR>
   nnoremap <leader>yt :YcmCompleter GetType<CR>
   "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
-  "set completeopt=longest,menu
-  "回车即选中当前项
-  inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+  set completeopt=longest,menu,preview
 "}
 
 "{ ultisnips
-let g:UltiSnipsJumpForwardTrigger = '<CR>'
-function! MyOnCompleteDone()
+  " 跳到下一个可修改词
+  let g:UltiSnipsJumpForwardTrigger = '<CR>'
+  function! MyOnCompleteDone()
     if !exists('v:completed_item') || empty(v:completed_item)
-        return
+      return "\<C-y>"
     endif
     let complete_str = v:completed_item.word
     if complete_str == ''
-        return
+      return "\<C-y>"
     endif
-
     let abbr = v:completed_item.abbr
     let methodIdx = match(abbr, "(method)")
-
     let startIdx = match(abbr, "(", methodIdx + 1)
     let endIdx = match(abbr, ")", startIdx)
-    if endIdx - startIdx > 1
-        let argsStr = strpart(abbr, startIdx + 1, endIdx - startIdx -1)
-        let b:ref = argsStr
-        let argsList = split(argsStr, ",")
-        let snippet = "" 
-        let snippets = []
-        let c = 1
-        for i in argsList
-            let nameAndType = split(i, ':')
-            " strip space
-            let nospace = substitute(nameAndType[0], '^\s*\(.\{-}\)\s*$', '\1', '') 
-            " 不自动填入参数类型，仅保留变量名
-            call add(snippets, "${".c.":".nospace."}")
-            let c += 1
-        endfor
-        let snippet = "(".join(snippets, ', ').")$0"
-        call UltiSnips#Anon(snippet)
+    if endIdx - startIdx >= 1
+      let argsStr = strpart(abbr, startIdx + 1, endIdx - startIdx -1)
+      let b:ref = argsStr
+      let argsList = split(argsStr, ",")
+      let snippet = "" 
+      let snippets = []
+      let c = 1
+      for i in argsList
+        let nameAndType = split(i, ':')
+        " strip space
+        let nospace = substitute(nameAndType[0], '^\s*\(.\{-}\)\s*$', '\1', '') 
+        " 不自动填入参数类型，仅保留变量名
+        call add(snippets, "${".c.":".nospace."}")
+        let c += 1
+      endfor
+      let snippet = "(".join(snippets, ', ').")$0"
+      return UltiSnips#Anon(snippet)
     endif
-endfunction
-autocmd CompleteDone *.ts  call MyOnCompleteDone()
-
+  endfunction
+  "回车即选中当前项, c-y 为应用选项
+  "autocmd CompleteDone *.ts  call MyOnCompleteDone()
+  inoremap <expr> <CR> pumvisible() ? "\<C-R>=MyOnCompleteDone()\<CR>" : "\<CR>"
 "}
 
 "ctrl.vim{
