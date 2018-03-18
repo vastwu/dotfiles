@@ -81,4 +81,4 @@ bindkey -v
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 #. <(npm completion)
-nvm use 6.3.1
+nvm use 8.9.2

@@ -80,7 +80,6 @@ Bundle 'gmarik/vundle'
 
 Bundle 'WinManager'
 Bundle 'scrooloose/nerdtree'
-"Bundle 'neocomplcache'
 Bundle 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Bundle 'surround.vim'
@@ -89,17 +88,19 @@ Bundle 'jsbeautify'
 Bundle 'molokai'
 Bundle 'mattn/emmet-vim'
 Bundle 'rking/ag.vim'
+" ts
+Plugin 'leafgarland/typescript-vim'
+Plugin 'isRuslan/vim-es6' 
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'vim-stylus'
 Plugin 'jade.vim'
-Plugin 'marijnh/tern_for_vim'
-"Plugin 'roxma/nvim-completion-manager'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'posva/vim-vue'
 Plugin 'digitaltoad/vim-pug'
-"Plugin 'Conque-Shell'
 Plugin 'Tagbar'
+Plugin 'SirVer/ultisnips'
 
 syntax enable
 syntax on
@@ -140,10 +141,72 @@ function! MyTabFunction ()
 endfunction
 inoremap <tab> <c-r>=MyTabFunction()<cr>
 
-:setlocal omnifunc=tern#Complete
-"call tern#Enable()
-":runtime after/ftplugin/javascript_tern.vim
+"tern{
+"  let g:tern_show_signature_in_pum = 1
+"  let g:tern_set_omni_function = 1
+"  :runtime after/ftplugin/javascript_tern.vim
+"  :set ft=html.javascript_tern
+"  :set ft=html.javascript
+"}
 
+let mapleader=","
+"YouCompleteMe
+  let g:ycm_seed_identifiers_with_syntax = 1
+  let g:ycm_autoclose_preview_window_after_completion = 1
+  let g:ycm_autoclose_preview_window_after_insertion = 1
+  let g:ycm_goto_buffer_command = 'horizontal-split'
+  let g:ycm_add_preview_to_completeopt = 1
+  let g:ycm_seed_identifiers_with_syntax = 1
+  "let g:ycm_cache_omnifunc = 0
+  let g:ycm_semantic_triggers = {
+    \  'javascript,typescript': ['.', '(', 're!(?=[a-zA-Z]{3,4})']
+  \}
+  nnoremap <leader>yd :YcmCompleter GoToDefinition<CR>
+  nnoremap <leader>yt :YcmCompleter GetType<CR>
+  "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
+  "set completeopt=longest,menu
+  "回车即选中当前项
+  inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+"}
+
+"{ ultisnips
+let g:UltiSnipsJumpForwardTrigger = '<CR>'
+function! MyOnCompleteDone()
+    if !exists('v:completed_item') || empty(v:completed_item)
+        return
+    endif
+    let complete_str = v:completed_item.word
+    if complete_str == ''
+        return
+    endif
+
+    let abbr = v:completed_item.abbr
+    let methodIdx = match(abbr, "(method)")
+
+    let startIdx = match(abbr, "(", methodIdx + 1)
+    let endIdx = match(abbr, ")", startIdx)
+    if endIdx - startIdx > 1
+        let argsStr = strpart(abbr, startIdx + 1, endIdx - startIdx -1)
+        let b:ref = argsStr
+        let argsList = split(argsStr, ",")
+        let snippet = "" 
+        let snippets = []
+        let c = 1
+        for i in argsList
+            let nameAndType = split(i, ':')
+            " strip space
+            let nospace = substitute(nameAndType[0], '^\s*\(.\{-}\)\s*$', '\1', '') 
+            " 不自动填入参数类型，仅保留变量名
+            call add(snippets, "${".c.":".nospace."}")
+            let c += 1
+        endfor
+        let snippet = "(".join(snippets, ', ').")$0"
+        call UltiSnips#Anon(snippet)
+    endif
+endfunction
+autocmd CompleteDone *.ts  call MyOnCompleteDone()
+
+"}
 
 "ctrl.vim{
     let g:ctrlp_map = '<c-p>'
@@ -173,15 +236,6 @@ inoremap <tab> <c-r>=MyTabFunction()<cr>
     endfunction
 "}
 
-"Neocomplcache{
-
-    let g:neocomplcache_enable_at_startup = 1
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"}
-
 "Winmanager {
     "let g:winManagerWindowLayout="NERDTree|TagList"
     "let g:winManagerWidth = 30
@@ -193,8 +247,10 @@ inoremap <tab> <c-r>=MyTabFunction()<cr>
     ":autocmd BufEnter *.* :set rnu
 "}
 
-"actionscript{
-    au BufNewFile,BufRead *.as setf actionscript
+"vim-vue{
+    let g:vue_disable_pre_processors=1
+    autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.pug.javascript.stylus
+    "autocmd FileType vue syntax sync fromstart
 "}
 "vim-markdown{
     let g:vim_markdown_frontmatter=1
@@ -204,6 +260,7 @@ inoremap <tab> <c-r>=MyTabFunction()<cr>
 
 "coffee-script{
     let g:coffee_watch_vert = 1
+    let coffee_make_options = '--no-header'
 "}
 "color config
 "pup Menu
