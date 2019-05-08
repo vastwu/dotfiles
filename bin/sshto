@@ -1,0 +1,68 @@
+#!/bin/bash
+
+IFS_OLD=$IFS
+IFS=$'\n'
+
+USER_NAME=""
+USER_PASSWORD=""
+
+function showRed {
+  echo -e "\033[31m$1\033[0m"
+}
+
+function showYellow {
+  echo -e "\033[33m$1\033[0m"
+}
+
+list=(
+"wusen@11.1111.11.11    | 测试: stable master"
+)
+
+
+echo $(showRed "---------------")
+for item in ${list[@]}
+do
+  index=$((index+1))
+  #if [ ${i:0:2} = "==" ]; then
+  #  showRed $i
+  #elif [ ${i:0:2} = "--" ]; then
+  #  showYellow $i
+  #else
+  echo "    $(showYellow [$index])  $item"
+  #fi
+done
+echo $(showRed "---------------")
+IFS=$IFS_OLD
+
+echo "which ip you want [ 1 - $index ]："
+read to_index
+TO_IP=${list[$to_index - 1]}
+
+echo $TO_IP
+
+arr=(${TO_IP//|/ })
+TO_IP=${arr[0]}
+
+echo 'input your auth code: '
+read AUTH_CODE
+
+
+expect -c "
+  set time 30
+  spawn ssh swan
+  expect {
+    \"*yes/no\" { send \"yes\r\"; exp_continue }
+    \"*password:\" { send \"$USER_PASSWORD$AUTH_CODE\r\"; exp_continue }
+    \"$USER_NAME@\" { send \"ssh $TO_IP\r\" }
+  }
+  expect {
+    \"*yes/no\" { send \"yes\r\"; exp_continue }
+    \"$USER_NAME@\" { send \"su worker\r\" }
+  }
+  expect \"密码*\"
+  send \"worker\r\"
+  expect \"$worker@\" 
+  send \"cd ~ \r\"
+  interact
+"
+
