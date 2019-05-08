@@ -101,6 +101,7 @@ Plugin 'posva/vim-vue'
 Plugin 'digitaltoad/vim-pug'
 Plugin 'Tagbar'
 Plugin 'SirVer/ultisnips'
+Plugin 'Sass'
 
 syntax enable
 syntax on
@@ -111,6 +112,10 @@ filetype plugin indent on     " required!
 " :BundleInstall(!)    - install(update) bundles
 " :BundleSearch(!) foo - search(or refresh cache first) for foo
 " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+
+"leafgarland/typescript-vim
+let g:typescript_compiler_binary = 'tsc'
+"let g:typescript_compiler_options = ''
 
 "tagbar
   nmap <F8> :TagbarToggle<CR>
@@ -164,7 +169,7 @@ let mapleader=","
   nnoremap <leader>yd :YcmCompleter GoToDefinition<CR>
   nnoremap <leader>yt :YcmCompleter GetType<CR>
   "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
-  set completeopt=longest,menu,preview
+  set completeopt=longest,menu
 "}
 
 "{ ultisnips
@@ -247,7 +252,8 @@ let mapleader=","
 
 "vim-vue{
     let g:vue_disable_pre_processors=1
-    autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.pug.javascript.stylus
+    autocmd FileType vue syntax sync fromstart
+    autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.pug.javascript.stylus.Sass.sass.scss.css
     "autocmd FileType vue syntax sync fromstart
 "}
 "vim-markdown{
