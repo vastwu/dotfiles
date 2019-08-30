@@ -43,7 +43,7 @@ function OpenFile()
   if ext == 'md' 
     exec "!open -a Markdown\\ Plus %"
   else
-    exec "!open -a Sublime\\ Text %"
+    exec "!open -a Visual\\ Studio\\ Code %"
   endif
 endfunction
 
@@ -86,26 +86,36 @@ Bundle 'surround.vim'
 Bundle 'ctrlp.vim'
 Bundle 'jsbeautify'
 Bundle 'molokai'
-Bundle 'mattn/emmet-vim'
+" Bundle 'mattn/emmet-vim'
 Bundle 'rking/ag.vim'
 " ts
 Plugin 'leafgarland/typescript-vim'
 Plugin 'isRuslan/vim-es6' 
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'kchmck/vim-coffee-script'
+"Plugin 'kchmck/vim-coffee-script'
 Plugin 'vim-stylus'
-Plugin 'jade.vim'
+"Plugin 'jade.vim'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'posva/vim-vue'
-Plugin 'digitaltoad/vim-pug'
+"Plugin 'posva/vim-vue'
+"Plugin 'digitaltoad/vim-pug'
 Plugin 'Tagbar'
 Plugin 'SirVer/ultisnips'
 Plugin 'Sass'
+Plugin 'vim-fugitive'
+" Plugin 'Smooth-Scroll'
+Plugin 'w0rp/ale'
+"Bundle 'scrooloose/syntastic'
 
+
+" 太慢了先关掉
+"execute pathogen#infect()
 syntax enable
 syntax on
 filetype plugin indent on     " required!
+filetype plugin on
+"set omnifunc=syntaxcomplete#Complete
+"imap <silent> ` <C-X><C-O>
 "
 " Brief help  -- 此处后面都是vundle的使用命令
 " :BundleList          - list configured bundles
@@ -113,9 +123,64 @@ filetype plugin indent on     " required!
 " :BundleSearch(!) foo - search(or refresh cache first) for foo
 " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 
+"ale
+""始终开启标志列
+let g:ale_sign_column_always = 1
+let g:ale_set_highlights = 0
+" 文件变化时不检查, 保存时检查
+let g:ale_lint_on_text_changed = 'never'
+" 打开文件时不检查
+let g:ale_lint_on_enter = 0
+"自定义error和warning图标
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚡'
+"在vim自带的状态栏中整合ale
+let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
+let g:ale_javascript_eslint_options = '-c ~/.eslintrc'
+" let g:ale_javascript_eslint_use_global = 1
+" airline整合
+let g:airline#extensions#ale#enabled = 1
+"let b:ale_linters = ['eslint']
+let g:ale_linters = {'javascript': ['eslint', 'tsserver']}
+" let g:ale_open_list = 1
+"显示Linter名称,出错或警告等相关信息
+"let g:ale_echo_msg_error_str = 'E'
+"let g:ale_echo_msg_warning_str = 'W'
+"let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+""普通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
+nmap sp <Plug>(ale_previous_wrap)
+nmap sn <Plug>(ale_next_wrap)
+"<Leader>s触发/关闭语法检查
+"nmap <Leader>s :ALEToggle<CR>
+""<Leader>d查看错误或警告的详细信息
+nmap <Leader>d :ALEDetail<CR>
+
+function! LinterStatus() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+
+  return l:counts.total == 0 ? 'OK' : printf(
+        \   '%dW %dE',
+        \   all_non_errors,
+        \   all_errors
+        \)
+endfunction
+
+set statusline=%{LinterStatus()}
+
+
 "leafgarland/typescript-vim
 let g:typescript_compiler_binary = 'tsc'
 "let g:typescript_compiler_options = ''
+
+"Smooth-Scroll
+" noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+" noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+" noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+" noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+
 
 "tagbar
   nmap <F8> :TagbarToggle<CR>
@@ -133,18 +198,15 @@ let g:typescript_compiler_binary = 'tsc'
 colorscheme molokai
 " make vim background transparen
 hi Normal ctermfg=252 ctermbg=none
-" 比较喜欢用tab来选择补全...
-function! MyTabFunction ()
-  let line = getline('.')
-  let substr = strpart(line, -1, col('.')+1)
-  let substr = matchstr(substr, "[^ \t]*$")
-  if strlen(substr) == 0
-    return "\<tab>"
+
+function! CleverTab()
+  if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+    return "\<Tab>"
+  else
+    return "\<C-N>"
   endif
-  return pumvisible() ? "\<c-n>" :
-  "\<c-x>\<c-o>"
 endfunction
-inoremap <tab> <c-r>=MyTabFunction()<cr>
+inoremap <tab> <C-R>=CleverTab()<CR>
 
 "tern{
 "  let g:tern_show_signature_in_pum = 1
@@ -215,8 +277,8 @@ let mapleader=","
     let g:ctrlp_map = '<c-p>'
     let g:ctrlp_cmd = 'CtrlP'
     let g:ctrlp_working_path_mode = 'w'
-    let g:ctrlp_by_filename = '1'
-    let g:ctrlp_custom_ignore = '\v[\/](node_modules|build|webuiTest)|(\.(swp|ico|git|svn))$'
+    let g:ctrlp_by_filename = '0'
+    let g:ctrlp_custom_ignore = '\v[\/](node_modules|build|webuiTest|dist)|(\.(swp|ico|git|svn))$'
     let g:ctrlp_open_new_file = 't'
     let g:ctrlp_clear_cache_on_exit = 1
 "    let g:ctrlp_user_command = 'find %s -type f'
@@ -285,3 +347,4 @@ au BufWrite *.js ks|execute ":%s/\\s*$//ge"|'s
 " wxss使用css高量，wxml使用html高亮
 au BufNewFile,BufRead *.wxss setf css
 au BufNewFile,BufRead *.wxml setf html
+set runtimepath^=~/.vim/bundle/ag

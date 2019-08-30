@@ -1,0 +1,7 @@
+#!/bin/sh
+
+#remove prev 5 arguments
+shift 5
+
+# run command
+vimdiff "$@"

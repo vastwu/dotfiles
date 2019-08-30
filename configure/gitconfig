@@ -1,0 +1,23 @@
+[user]
+    email = wusen@bytedance.com
+    name = wusen
+[alias]
+    logf = log --name-status
+    d = difftool
+    ci = commit
+    co = checkout
+    st = status
+    bls = branch --list
+    new = "!f() { git fetch && git checkout -b local/${1:-`date +%H-%M`}/`date +%m-%d` origin/dev; }; f"
+    rvd = "!f() { git push origin HEAD:refs/for/dev%${1}; }; f"
+    rv = "!f() { git push origin HEAD:refs/for/${1:dev}%${2}; }; f"
+    fp = "!f() { git fetch origin refs/changes/$(printf "%02d" $(expr ${1} % 100))/${1}/${2:-1} && git checkout FETCH_HEAD;}; f"
+    cin = commit --amend --no-edit
+    delbranch = "!f() {git branch | grep local | xargs git branch -D; }; f"
+[diff]
+    tool = vimdiff
+[difftool]
+    prompt = false
+    trustExitCode = true
+[init]
+	templatedir = /Users/bumori/.gittemplates
