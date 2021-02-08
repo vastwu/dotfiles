@@ -46,7 +46,7 @@ alias zshconfig="vim ~/.zshrc"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git vundle node z)
+plugins=(git vundle node z zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 # about nvm configure
@@ -86,6 +86,26 @@ bindkey -v
 
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-nvm use 8.12.0
+#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+#nvm use 8.12.0
+
+# 内网代理
+function use-proxy() {
+  export {http,https,ftp,all}_proxy=http://127.0.0.1:12639
+  echo $http_proxy
+}
+function unset-proxy() {
+  unset {http,https,ftp,all}_proxy
+}
+function mnet() {
+  ssh vastwu@pcg.mnet2.com -p 36000
+}
+
+no_proxy=.wsd.com,mirrors.tencent.com
+
+
+export {http,https,ftp,all}_proxy=http://127.0.0.1:12639
+export PATH=$PATH:/Users/vastwu/.fef/bin

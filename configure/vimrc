@@ -35,6 +35,7 @@ set pastetoggle=<F9>
 "快捷命令
 "nnoremap <silent> <F5> :!open % -a Sublime\ Text<cr>
 nnoremap <silent> <F5> :call OpenFile()<cr>
+vnoremap <F5> :CarbonNowSh<CR>
 function OpenFile()
   let ext = expand("%:e")
   let filename = "%"
@@ -90,6 +91,7 @@ Bundle 'molokai'
 Bundle 'rking/ag.vim'
 " ts
 Plugin 'leafgarland/typescript-vim'
+Plugin 'peitalin/vim-jsx-typescript'
 Plugin 'isRuslan/vim-es6' 
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
@@ -97,14 +99,16 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'vim-stylus'
 "Plugin 'jade.vim'
 Plugin 'Valloric/YouCompleteMe'
-"Plugin 'posva/vim-vue'
+Plugin 'posva/vim-vue'
 "Plugin 'digitaltoad/vim-pug'
 Plugin 'Tagbar'
 Plugin 'SirVer/ultisnips'
 Plugin 'Sass'
-Plugin 'vim-fugitive'
+"Plugin 'vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 " Plugin 'Smooth-Scroll'
 Plugin 'w0rp/ale'
+Plugin 'kristijanhusak/vim-carbon-now-sh'
 "Bundle 'scrooloose/syntastic'
 
 
@@ -228,6 +232,7 @@ let mapleader=","
   let g:ycm_semantic_triggers = {
     \  'javascript,typescript': ['.', '(', 're!(?=[a-zA-Z]{3,4})']
   \}
+  " 'javascript,typescript': ['.', '(', 're!(?=[a-zA-Z]{3,4})']
   nnoremap <leader>yd :YcmCompleter GoToDefinition<CR>
   nnoremap <leader>yt :YcmCompleter GetType<CR>
   "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
@@ -278,7 +283,7 @@ let mapleader=","
     let g:ctrlp_cmd = 'CtrlP'
     let g:ctrlp_working_path_mode = 'w'
     let g:ctrlp_by_filename = '0'
-    let g:ctrlp_custom_ignore = '\v[\/](node_modules|build|webuiTest|dist)|(\.(swp|ico|git|svn))$'
+    let g:ctrlp_custom_ignore = '\v[\/](node_modules|build|webuiTest|dist|coverage)|(\.(swp|ico|git|svn))$'
     let g:ctrlp_open_new_file = 't'
     let g:ctrlp_clear_cache_on_exit = 1
 "    let g:ctrlp_user_command = 'find %s -type f'
@@ -290,8 +295,11 @@ let mapleader=","
 "}
 
 "Nerdtree{
+    let g:NERDTreeShowHidden = 1
+    let g:NERDTreeIgnore = ['\.git$', '\.DS_Store', '\.swo', '\.vscode', '__pycache__'] 
     let g:NERDTree_title="[NERDTree]"
     let g:NERTreeWinPos='left'
+    let g:NERDTreeWinSize = 50
     function! NERDTree_Start()
         exec 'NERDTree'
     endfunction
@@ -347,4 +355,5 @@ au BufWrite *.js ks|execute ":%s/\\s*$//ge"|'s
 " wxss使用css高量，wxml使用html高亮
 au BufNewFile,BufRead *.wxss setf css
 au BufNewFile,BufRead *.wxml setf html
+au BufNewFile,BufRead *.txt setf js
 set runtimepath^=~/.vim/bundle/ag
