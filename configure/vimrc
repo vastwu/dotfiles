@@ -63,7 +63,7 @@ nnoremap <C-h> gT
 vmap "+y :w !pbcopy<CR><CR> 
 nmap "+p :r !pbpaste<CR><CR> 
 
-filetype off
+filetype on
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 " let Vundle manage Vundle
@@ -95,14 +95,13 @@ Plugin 'peitalin/vim-jsx-typescript'
 Plugin 'isRuslan/vim-es6' 
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
-"Plugin 'kchmck/vim-coffee-script'
 Plugin 'vim-stylus'
 "Plugin 'jade.vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'posva/vim-vue'
+"Plugin 'Valloric/YouCompleteMe'
+"Plugin 'posva/vim-vue'
 "Plugin 'digitaltoad/vim-pug'
 Plugin 'Tagbar'
-Plugin 'SirVer/ultisnips'
+"Plugin 'SirVer/ultisnips'
 Plugin 'Sass'
 "Plugin 'vim-fugitive'
 Plugin 'tpope/vim-fugitive'
@@ -174,18 +173,6 @@ endfunction
 
 set statusline=%{LinterStatus()}
 
-
-"leafgarland/typescript-vim
-let g:typescript_compiler_binary = 'tsc'
-"let g:typescript_compiler_options = ''
-
-"Smooth-Scroll
-" noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-" noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-" noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-" noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
-
-
 "tagbar
   nmap <F8> :TagbarToggle<CR>
 
@@ -203,79 +190,57 @@ colorscheme molokai
 " make vim background transparen
 hi Normal ctermfg=252 ctermbg=none
 
-function! CleverTab()
-  if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
-    return "\<Tab>"
+let mapleader=","
+
+"coc.nvim {
+let g:coc_global_extensions = ['coc-tsserver']
+set cmdheight=2
+
+" 跳转定义
+nmap <silent>gd <Plug>(coc-definition)
+nmap <silent>gy <Plug>(coc-type-definition)
+" 跳转实现
+nmap <silent>gi <Plug>(coc-implementation)
+" 跳转引用
+nmap <silent>gr <Plug>(coc-references)
+
+nmap <silent>do <Plug>(coc-codeaction)
+
+" 格式化选中代码
+xmap <leader>f  <Plug>(coc-format-selected)
+
+" 按空格选择第一个提示并跟随一个空格
+inoremap <expr><space> pumvisible() ? coc#_select_confirm() . "\<SPACE>" : "\<SPACE>"
+" tab选下一个
+" 非弹窗状态下tab激活提示
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+set updatetime=1000
+" autocmd CursorHold * silent call CocActionAsync('doHover')
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
   else
-    return "\<C-N>"
+    execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
-inoremap <tab> <C-R>=CleverTab()<CR>
 
-"tern{
-"  let g:tern_show_signature_in_pum = 1
-"  let g:tern_set_omni_function = 1
-"  :runtime after/ftplugin/javascript_tern.vim
-"  :set ft=html.javascript_tern
-"  :set ft=html.javascript
-"}
 
-let mapleader=","
-"YouCompleteMe
-  let g:ycm_seed_identifiers_with_syntax = 1
-  let g:ycm_autoclose_preview_window_after_completion = 1
-  let g:ycm_autoclose_preview_window_after_insertion = 1
-  let g:ycm_goto_buffer_command = 'horizontal-split'
-  let g:ycm_add_preview_to_completeopt = 1
-  let g:ycm_seed_identifiers_with_syntax = 1
-  "let g:ycm_cache_omnifunc = 0
-  let g:ycm_semantic_triggers = {
-    \  'javascript,typescript': ['.', '(', 're!(?=[a-zA-Z]{3,4})']
-  \}
-  " 'javascript,typescript': ['.', '(', 're!(?=[a-zA-Z]{3,4})']
-  nnoremap <leader>yd :YcmCompleter GoToDefinition<CR>
-  nnoremap <leader>yt :YcmCompleter GetType<CR>
-  "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
-  set completeopt=longest,menu
-"}
-
-"{ ultisnips
-  " 跳到下一个可修改词
-  let g:UltiSnipsJumpForwardTrigger = '<CR>'
-  function! MyOnCompleteDone()
-    if !exists('v:completed_item') || empty(v:completed_item)
-      return "\<C-y>"
-    endif
-    let complete_str = v:completed_item.word
-    if complete_str == ''
-      return "\<C-y>"
-    endif
-    let abbr = v:completed_item.abbr
-    let methodIdx = match(abbr, "(method)")
-    let startIdx = match(abbr, "(", methodIdx + 1)
-    let endIdx = match(abbr, ")", startIdx)
-    if endIdx - startIdx >= 1
-      let argsStr = strpart(abbr, startIdx + 1, endIdx - startIdx -1)
-      let b:ref = argsStr
-      let argsList = split(argsStr, ",")
-      let snippet = "" 
-      let snippets = []
-      let c = 1
-      for i in argsList
-        let nameAndType = split(i, ':')
-        " strip space
-        let nospace = substitute(nameAndType[0], '^\s*\(.\{-}\)\s*$', '\1', '') 
-        " 不自动填入参数类型，仅保留变量名
-        call add(snippets, "${".c.":".nospace."}")
-        let c += 1
-      endfor
-      let snippet = "(".join(snippets, ', ').")$0"
-      return UltiSnips#Anon(snippet)
-    endif
-  endfunction
-  "回车即选中当前项, c-y 为应用选项
-  "autocmd CompleteDone *.ts  call MyOnCompleteDone()
-  inoremap <expr> <CR> pumvisible() ? "\<C-R>=MyOnCompleteDone()\<CR>" : "\<CR>"
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
 "}
 
 "ctrl.vim{
@@ -320,22 +285,12 @@ let mapleader=","
     ":autocmd BufEnter *.* :set rnu
 "}
 
-"vim-vue{
-    let g:vue_disable_pre_processors=1
-    autocmd FileType vue syntax sync fromstart
-    autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.pug.javascript.stylus.Sass.sass.scss.css
-    "autocmd FileType vue syntax sync fromstart
-"}
 "vim-markdown{
     let g:vim_markdown_frontmatter=1
     let g:vim_markdown_math=1
     let g:vim_markdown_folding_disabled=1
 "}
 
-"coffee-script{
-    let g:coffee_watch_vert = 1
-    let coffee_make_options = '--no-header'
-"}
 "color config
 "pup Menu
 " see :h vundle for more details or wiki for FAQ
@@ -348,12 +303,15 @@ au BufWrite /private/tmp/crontab.* set nowritebackup
 au BufWrite /private/etc/pw.* set nowritebackup
 
 " remove ^M
-au BufWrite *.js ks|execute ":%s/\r$//ge"|'s
+au BufWrite *.{js,jsx,ts,tsx} ks|execute ":%s/\r$//ge"|'s
 " remove line end space when save file
-au BufWrite *.js ks|execute ":%s/\\s*$//ge"|'s
+au BufWrite *.{js,jsx,ts,tsx} ks|execute ":%s/\\s*$//ge"|'s
 
 " wxss使用css高量，wxml使用html高亮
-au BufNewFile,BufRead *.wxss setf css
-au BufNewFile,BufRead *.wxml setf html
-au BufNewFile,BufRead *.txt setf js
+"au BufNewFile,BufRead *.wxss setf css
+"au BufNewFile,BufRead *.wxml setf html
+"au BufNewFile,BufRead *.txt setf js
 set runtimepath^=~/.vim/bundle/ag
+
+"autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+
