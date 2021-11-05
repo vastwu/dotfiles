@@ -32,6 +32,8 @@ set noswapfile
 set background=light
 "粘贴模式切换
 set pastetoggle=<F9>
+" 格式化命令
+set formatoptions=tcpmM
 "快捷命令
 "nnoremap <silent> <F5> :!open % -a Sublime\ Text<cr>
 nnoremap <silent> <F5> :call OpenFile()<cr>
