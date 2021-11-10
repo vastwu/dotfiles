@@ -67,66 +67,36 @@ nmap "+p :r !pbpaste<CR><CR>
 
 filetype on
 set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-" let Vundle manage Vundle
-" required!
-Bundle 'gmarik/vundle'
-" My Bundles here:
-"
-" vim-scripts repos
-"Bundle 'L9'
-"
-" non github repos
-"Bundle 'git://git.wincent.com/command-t.git'
-"
-" original repos on github
 
-Bundle 'WinManager'
-Bundle 'scrooloose/nerdtree'
-Bundle 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Bundle 'surround.vim'
-Bundle 'ctrlp.vim'
-Bundle 'jsbeautify'
-Bundle 'molokai'
-" Bundle 'mattn/emmet-vim'
-Bundle 'rking/ag.vim'
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'scrooloose/nerdtree'
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'https://github.com/tpope/vim-surround'
+Plug '~/.vim/plugged/molokai'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'https://github.com/alok/notational-fzf-vim'
 " ts
-Plugin 'leafgarland/typescript-vim'
-Plugin 'peitalin/vim-jsx-typescript'
-Plugin 'isRuslan/vim-es6' 
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'vim-stylus'
-"Plugin 'jade.vim'
-"Plugin 'Valloric/YouCompleteMe'
-"Plugin 'posva/vim-vue'
-"Plugin 'digitaltoad/vim-pug'
-Plugin 'Tagbar'
-"Plugin 'SirVer/ultisnips'
-Plugin 'Sass'
-"Plugin 'vim-fugitive'
-Plugin 'tpope/vim-fugitive'
-" Plugin 'Smooth-Scroll'
-Plugin 'w0rp/ale'
-Plugin 'kristijanhusak/vim-carbon-now-sh'
-"Bundle 'scrooloose/syntastic'
-
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'isRuslan/vim-es6' 
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'https://github.com/preservim/tagbar'
+Plug 'tpope/vim-fugitive'
+Plug 'w0rp/ale'
+Plug 'kristijanhusak/vim-carbon-now-sh'
+call plug#end()
 
 " 太慢了先关掉
-"execute pathogen#infect()
 syntax enable
 syntax on
 filetype plugin indent on     " required!
 filetype plugin on
-"set omnifunc=syntaxcomplete#Complete
-"imap <silent> ` <C-X><C-O>
-"
-" Brief help  -- 此处后面都是vundle的使用命令
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 
 "ale
 ""始终开启标志列
@@ -179,20 +149,40 @@ set statusline=%{LinterStatus()}
   nmap <F8> :TagbarToggle<CR>
 
 "jsdoc
-    let g:jsdoc_default_mapping=0
-    let g:jsdoc_additional_descriptions=0
-    nnoremap <F6> :JsDoc<cr>
+  let g:jsdoc_default_mapping=0
+  let g:jsdoc_additional_descriptions=0
+  nnoremap <F6> :JsDoc<cr>
 
-"ag.vim
-    nnoremap <F3> :Ag<space>
-    let g:ag_highlight=1
-    let g:ag_prg="ag --colum --smart-case"
+
+"fzf
+  nmap <C-p> :Files<CR>
+  let g:fzf_preview_window = ''
+  let g:fzf_preview_window = 'right:60%'
+  let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+"alok/notational-fzf-vim'
+  nnoremap <F3> :NV<space>
+  let g:nv_search_paths = ['./']
+  let g:nv_ignore_pattern = ['yarn.lock', 'yarn-error.log', 'node_modules', 'docs']
+
 
 colorscheme molokai
 " make vim background transparen
 hi Normal ctermfg=252 ctermbg=none
 
 let mapleader=","
+
+" tpope/vim-fugitive/ {
+cnoremap gb Git blame<CR>
+
+function! s:ToggleBlame()
+  if :Gblame buffer is open:
+    close buffer
+  endif
+endfunction
+"noremap q :call <SID>ToggleBlame()<CR>
+
+" }
 
 "coc.nvim {
 let g:coc_global_extensions = ['coc-tsserver']
@@ -262,6 +252,7 @@ endfunction
 "}
 
 "Nerdtree{
+    noremap <F2> :NERDTreeToggle<cr>
     let g:NERDTreeShowHidden = 1
     let g:NERDTreeIgnore = ['\.git$', '\.DS_Store', '\.swo', '\.vscode', '__pycache__'] 
     let g:NERDTree_title="[NERDTree]"
@@ -274,17 +265,6 @@ endfunction
     function! NERDTree_IsValid()
             return 1
     endfunction
-"}
-
-"Winmanager {
-    "let g:winManagerWindowLayout="NERDTree|TagList"
-    "let g:winManagerWidth = 30
-    "let g:defaultExplorer = 0    "Don't write backup file if vim is being called by "crontab -e"
-    "let g:persistentBehaviour = 0
-    noremap <F2> :NERDTreeToggle<cr>
-    ":nmap <C-K> <C-W>w
-    " open nerdtree when vim enter
-    ":autocmd BufEnter *.* :set rnu
 "}
 
 "vim-markdown{
