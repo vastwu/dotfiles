@@ -1,0 +1,29 @@
+{
+  "coc.preferences.jumpCommand": "tabe",
+  "javascript.showUnused": true,
+  "javascript.autoClosingTags": true,
+  "tsserver.enableJavascript": true,
+
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+  "typescript.preferences.quoteStyle": "single", 
+
+  "diagnostic.errorSign": "✖",
+  "diagnostic.infoSign": "!!",
+  "diagnostic.warningSign": "ϟ",
+  "diagnostic.displayByAle": true,
+
+  "suggest.floatEnable": true,
+  "suggest.enablePreview": true,
+  "suggest.detailField": "menu",
+  "suggest.snippetIndicator": "",
+  "suggest.triggerCompletionWait": 800,
+  "suggest.completionItemKindLabels": {
+    "default": "?",
+    "method": "method",
+    "field": "field",
+    "enum": "enum",
+    "property": "property",
+    "interface": "interface",
+    "enumMember": "enumMember"
+  }
+}
