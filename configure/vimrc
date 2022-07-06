@@ -68,7 +68,6 @@ nmap "+p :r !pbpaste<CR><CR>
 filetype on
 set rtp+=~/.vim/bundle/vundle/
 
-
 call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -159,11 +158,13 @@ set statusline=%{LinterStatus()}
   let g:fzf_preview_window = ''
   let g:fzf_preview_window = 'right:60%'
   let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+  "let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 "alok/notational-fzf-vim'
   nnoremap <F3> :NV<space>
   let g:nv_search_paths = ['./']
   let g:nv_ignore_pattern = ['yarn.lock', 'yarn-error.log', 'node_modules', 'docs']
+  let g:nv_use_short_pathnames = 0
 
 
 colorscheme molokai
@@ -175,11 +176,11 @@ let mapleader=","
 " tpope/vim-fugitive/ {
 cnoremap gb Git blame<CR>
 
-function! s:ToggleBlame()
-  if :Gblame buffer is open:
-    close buffer
-  endif
-endfunction
+"function! s:ToggleBlame()
+"  if :Gblame buffer is open:
+"    close buffer
+"  endif
+"endfunction
 "noremap q :call <SID>ToggleBlame()<CR>
 
 " }
@@ -287,7 +288,7 @@ au BufWrite /private/etc/pw.* set nowritebackup
 " remove ^M
 au BufWrite *.{js,jsx,ts,tsx} ks|execute ":%s/\r$//ge"|'s
 " remove line end space when save file
-au BufWrite *.{js,jsx,ts,tsx} ks|execute ":%s/\\s*$//ge"|'s
+" au BufWrite *.{js,jsx,ts,tsx} ks|execute ":%s/\\s*$//ge"|'s
 
 " wxss使用css高量，wxml使用html高亮
 "au BufNewFile,BufRead *.wxss setf css

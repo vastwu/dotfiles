@@ -112,6 +112,7 @@ export {http,https,ftp,all}_proxy=http://127.0.0.1:12639
 export PATH="$PATH:$HOME/.ft"
 export W2_PORT="8082"
 
-export FZF_DEFAULT_COMMAND="find . \( -name docs -o -name *node_modules* -o -name .git \) -prune -o -type f -name '*'"
+setopt no_nomatch
+export FZF_DEFAULT_COMMAND="find . \( -name coverage -o -name docs -o -name *node_modules* -o -name .git \) -prune -o -type f -name '*'"
 
 
