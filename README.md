@@ -21,20 +21,31 @@ we have to add a third-party PPA. Do this for a successful installation
 
 download
 
-    git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+```sh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+sh -c "$(fetch -o - https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
 
 set zsh as default shell
 
     chsh -s /bin/zsh
 
-### install vundle
+### install vim-plug
 
-    git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+```sh
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```
+
+https://github.com/junegunn/vim-plug
 
 ### install all vim plugin
 
     vim
-    :BundleInstall
+    :PlugInstall
 
 > all finished, have fun
 
