@@ -51,27 +51,6 @@ https://github.com/junegunn/vim-plug
 
 ## EXTENSION
 
-### YouCompleteMe + tern
-
-#### download plugins by vundle
-
-add that in `.vimrc`
-```
-Plugin 'marijnh/tern_for_vim'
-Plugin 'Valloric/YouCompleteMe'
-...
-:setlocal omnifunc=tern#Complete
-call tern#Enable()
-:runtime after/ftplugin/javascript_tern.vim
-```
-run `BundleInstall`
-
-> `youcompleteme` needs cmake for compile（sudo brew install CMake）
-
-#### configure
-* [http://blog.jobbole.com/58978/](http://blog.jobbole.com/58978/)
-* [http://efe.baidu.com/blog/vim-javascript-completion/](http://efe.baidu.com/blog/vim-javascript-completion/)
-
 ### tmux
 
     sudo apt-get install tmux

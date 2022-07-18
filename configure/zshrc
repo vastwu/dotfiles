@@ -46,7 +46,7 @@ alias zshconfig="vim ~/.zshrc"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git vundle node z zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git vundle node z zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 # about nvm configure
@@ -56,10 +56,8 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 #alias tmux="tmux -2" #256 colors for tmux
 
-export PATH=$HOME/.shell:$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.shell:$HOME/bin:/usr/local/bin:/opt/homebrew/bin:$PATH
 # for slimerjslauncher
-export SLIMERJSLAUNCHER=/Applications/Firefox.app/Contents/MacOS/firefox
-export SLIMERDIR=/Users/vastwu/code/demo/slimerjs/slimerjs-lib
 LANG=zh_CN.UTF-8
 LC_ALL=zh_CN.UTF-8
 LANGUAGE=en_US:en
@@ -86,11 +84,10 @@ bindkey -v
 
 
 export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
-nvm use 12
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+nvm use 14
 
 # 内网代理
 function use-proxy() {

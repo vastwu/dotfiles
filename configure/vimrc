@@ -75,7 +75,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'https://github.com/tpope/vim-surround'
-Plug '~/.vim/plugged/molokai'
+"Plug '~/.vim/plugged/molokai'
+Plug 'https://github.com/tomasr/molokai'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'https://github.com/alok/notational-fzf-vim'
@@ -156,7 +157,7 @@ set statusline=%{LinterStatus()}
 "fzf
   nmap <C-p> :Files<CR>
   let g:fzf_preview_window = ''
-  let g:fzf_preview_window = 'right:60%'
+  let g:fzf_preview_window = 'right:40%'
   let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
   "let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 

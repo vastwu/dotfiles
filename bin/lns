@@ -1,0 +1,5 @@
+ln -s ./configure/vimrc ~/.vimrc
+ln -s ./configure/zshrc ~/.zshrc
+ln -s ./configure/gitconfig ~/.gitconfig
+ln -s ./configure/tmux.conf ~/.tmux.conf
+ln -s ./configure/coc-settings.json ~/.vim/coc-settings.json
