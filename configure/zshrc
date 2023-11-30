@@ -46,7 +46,7 @@ alias zshconfig="vim ~/.zshrc"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git vundle node z zsh-syntax-highlighting)
+plugins=(git node z zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 # about nvm configure
@@ -87,7 +87,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-nvm use 14
+nvm use 16
 
 # 内网代理
 function use-proxy() {
@@ -101,7 +101,8 @@ function mnet() {
   ssh vastwu@pcg.mnet2.com -p 36000
 }
 
-no_proxy=.wsd.com,mirrors.tencent.com
+# export no_proxy=${no_proxy},git.woa.com
+no_proxy=.wsd.com,mirrors.tencent.com,servicewechat.com,git.woa.com
 
 
 export {http,https,ftp,all}_proxy=http://127.0.0.1:12639
@@ -110,6 +111,8 @@ export PATH="$PATH:$HOME/.ft"
 export W2_PORT="8082"
 
 setopt no_nomatch
-export FZF_DEFAULT_COMMAND="find . \( -name coverage -o -name docs -o -name *node_modules* -o -name .git \) -prune -o -type f -name '*'"
+# export FZF_DEFAULT_COMMAND="find . \( -name coverage -o -name docs -o -name *node_modules* -o -name .git \) -prune -o -type f -name '*'"
+# export FZF_DEFAULT_COMMAND="find . \( -path ./coverage -o -path ./docs -o -path ./node_modules -o -path ./.git \) -prune -o -type f -name '*'"
+export FZF_DEFAULT_COMMAND="find . \( -path ./coverage -o -path ./docs -o -path ./node_modules -o -path ./.git -o -path ./dist \) -prune -o -type f -name '*'"
 
 

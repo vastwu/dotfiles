@@ -43,11 +43,7 @@ function OpenFile()
   let filename = "%"
   "echo ext
   "echo filename
-  if ext == 'md' 
-    exec "!open -a Markdown\\ Plus %"
-  else
-    exec "!open -a Visual\\ Studio\\ Code %"
-  endif
+  exec "!open -a Visual\\ Studio\\ Code %"
 endfunction
 
 set cursorline
@@ -90,13 +86,15 @@ Plug 'https://github.com/preservim/tagbar'
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
 Plug 'kristijanhusak/vim-carbon-now-sh'
+
 call plug#end()
 
-" 太慢了先关掉
 syntax enable
 syntax on
 filetype plugin indent on     " required!
 filetype plugin on
+
+let mapleader=","
 
 "ale
 ""始终开启标志列
@@ -155,24 +153,22 @@ set statusline=%{LinterStatus()}
 
 
 "fzf
+"junegunn/fzf
   nmap <C-p> :Files<CR>
-  let g:fzf_preview_window = ''
-  let g:fzf_preview_window = 'right:40%'
   let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-  "let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+  let g:fzf_layout = { 'down': '60%' }
+  let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 "alok/notational-fzf-vim'
   nnoremap <F3> :NV<space>
   let g:nv_search_paths = ['./']
-  let g:nv_ignore_pattern = ['yarn.lock', 'yarn-error.log', 'node_modules', 'docs']
+  let g:nv_ignore_pattern = ['yarn.lock', 'yarn-error.log', 'node_modules', 'docs', 'dist']
   let g:nv_use_short_pathnames = 0
 
 
 colorscheme molokai
 " make vim background transparen
 hi Normal ctermfg=252 ctermbg=none
-
-let mapleader=","
 
 " tpope/vim-fugitive/ {
 cnoremap gb Git blame<CR>
@@ -188,7 +184,7 @@ cnoremap gb Git blame<CR>
 
 "coc.nvim {
 let g:coc_global_extensions = ['coc-tsserver']
-set cmdheight=2
+set cmdheight=4
 
 " 跳转定义
 nmap <silent>gd <Plug>(coc-definition)
@@ -203,18 +199,26 @@ nmap <silent>do <Plug>(coc-codeaction)
 " 格式化选中代码
 xmap <leader>f  <Plug>(coc-format-selected)
 
-" 按空格选择第一个提示并跟随一个空格
-inoremap <expr><space> pumvisible() ? coc#_select_confirm() . "\<SPACE>" : "\<SPACE>"
+" 按空格选择第一个提示并跟随一个空格(先关闭了，经常需要打空格时候会触发第一个选项)
+" inoremap <expr><space> pumvisible() ? coc#_select_confirm() . "\<SPACE>" : "\<SPACE>"
 " tab选下一个
 " 非弹窗状态下tab激活提示
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
+
+" 按回车确定使用snippets
+" http://npm.taobao.org/package/coc-snippets
+inoremap <silent><expr> <CR>
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ "\<CR>"
+
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 set updatetime=1000
@@ -238,13 +242,13 @@ endfunction
 "}
 
 "ctrl.vim{
-    let g:ctrlp_map = '<c-p>'
-    let g:ctrlp_cmd = 'CtrlP'
-    let g:ctrlp_working_path_mode = 'w'
-    let g:ctrlp_by_filename = '0'
-    let g:ctrlp_custom_ignore = '\v[\/](node_modules|build|webuiTest|dist|coverage)|(\.(swp|ico|git|svn))$'
-    let g:ctrlp_open_new_file = 't'
-    let g:ctrlp_clear_cache_on_exit = 1
+"    let g:ctrlp_map = '<c-p>'
+"    let g:ctrlp_cmd = 'CtrlP'
+"    let g:ctrlp_working_path_mode = 'w'
+"    let g:ctrlp_by_filename = '0'
+"    let g:ctrlp_custom_ignore = '\v[\/](node_modules|build|webuiTest|dist|coverage)|(\.(swp|ico|git|svn))$'
+"    let g:ctrlp_open_new_file = 't'
+"    let g:ctrlp_clear_cache_on_exit = 1
 "    let g:ctrlp_user_command = 'find %s -type f'
 " }
 
@@ -275,6 +279,26 @@ endfunction
     let g:vim_markdown_folding_disabled=1
 "}
 
+"ctags{
+  noremap <leader>t :TagbarToggle<CR>
+  "au BufEnter *.{ts,tsx} nested :TagbarOpen<CR>
+
+  let g:tagbar_show_data_type=1
+  let g:tagbar_type_typescript = {
+      \ 'kinds' : [
+          \ 'n:namespaces',
+          \ 'i:interfaces',
+          \ 'g:enums',
+          \ 'e:enumerations',
+          \ 'c:classes',
+          \ 'f:functions',
+          \ 'p:properties',
+          \ 'm:methods',
+          \ '?:unknown',
+      \ ],
+  \ }
+"}
+
 "color config
 "pup Menu
 " see :h vundle for more details or wiki for FAQ
@@ -288,6 +312,8 @@ au BufWrite /private/etc/pw.* set nowritebackup
 
 " remove ^M
 au BufWrite *.{js,jsx,ts,tsx} ks|execute ":%s/\r$//ge"|'s
+
+"au BufRead,BufNewFile *.{ts,tsx} :TagbarToggle<CR>
 " remove line end space when save file
 " au BufWrite *.{js,jsx,ts,tsx} ks|execute ":%s/\\s*$//ge"|'s
 

@@ -103,12 +103,19 @@ it is fast than vimgrep
 A app for mac, it can define some fast-key for some operate [slate on github](https://github.com/jigish/slate)
 
 quick install
-
-    cd /Applications && curl http://www.ninjamonkeysoftware.com/slate/versions/slate-latest.tar.gz | tar -xz
+```
+cd /Applications && curl http://www.ninjamonkeysoftware.com/slate/versions/slate-latest.tar.gz | tar -xz
+```
 
 link `slate` to `~/.slate`
 
 ### some command for my vim plugin
-    
+```    
     <c-p>: open ctrlp file search
     <F2>: open nerdtree 
+```
+
+### install ctags
+```
+brew install --HEAD universal-ctags
+```

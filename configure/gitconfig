@@ -1,5 +1,7 @@
 [alias]
     logf = log --name-status
+    logm = log --author=vastwu
+    logfm = log --author=vastwu --name-status
     d = difftool
     ci = commit
     co = checkout
@@ -7,7 +9,9 @@
     bls = branch --list
     cin = commit --amend --no-edit
 [pull]
-  rebase = true
+  rebase = false # leflow限制
+[push]
+  autoSetupRemote = true
 [diff]
     tool = vimdiff
 [difftool]
@@ -25,3 +29,10 @@
 [user]
 	name = vastwu
 	email = vastwu@tencent.com
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[legit]
+	uiLang = zh

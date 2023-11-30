@@ -25,5 +25,8 @@
     "property": "property",
     "interface": "interface",
     "enumMember": "enumMember"
-  }
+  },
+  "snippets.ultisnips.pythonPrompt": false,
+
+  "snippets.userSnippetsDirectory": "/Users/vastwu/.vim/coc-snippets"
 }
