@@ -12,6 +12,7 @@
   "diagnostic.warningSign": "ϟ",
   "diagnostic.displayByAle": true,
 
+  "suggest.noselect": true,
   "suggest.floatEnable": true,
   "suggest.enablePreview": true,
   "suggest.detailField": "menu",

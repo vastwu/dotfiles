@@ -36,3 +36,5 @@
 	required = true
 [legit]
 	uiLang = zh
+[oh-my-zsh]
+	hide-dirty = 1

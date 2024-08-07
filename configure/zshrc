@@ -87,7 +87,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-nvm use 16
+nvm use 18
 
 # 内网代理
 function use-proxy() {
@@ -102,7 +102,7 @@ function mnet() {
 }
 
 # export no_proxy=${no_proxy},git.woa.com
-no_proxy=.wsd.com,mirrors.tencent.com,servicewechat.com,git.woa.com
+no_proxy=.wsd.com,mirrors.tencent.com,servicewechat.com,git.woa.com,zhiyan.monitor.access.inner.woa.com
 
 
 export {http,https,ftp,all}_proxy=http://127.0.0.1:12639
