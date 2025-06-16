@@ -199,6 +199,11 @@ nmap <silent>do <Plug>(coc-codeaction)
 " 格式化选中代码
 xmap <leader>f  <Plug>(coc-format-selected)
 
+" gongfeng Copilot
+" https://git.woa.com/features/copilot?from=iSearch
+" shift + control + c
+imap <S-C-C> <Plug>(copilot-suggest)
+
 " 按空格选择第一个提示并跟随一个空格(先关闭了，经常需要打空格时候会触发第一个选项)
 " inoremap <expr><space> pumvisible() ? coc#_select_confirm() . "\<SPACE>" : "\<SPACE>"
 " tab选下一个
@@ -318,10 +323,11 @@ au BufWrite *.{js,jsx,ts,tsx} ks|execute ":%s/\r$//ge"|'s
 " au BufWrite *.{js,jsx,ts,tsx} ks|execute ":%s/\\s*$//ge"|'s
 
 " wxss使用css高量，wxml使用html高亮
-"au BufNewFile,BufRead *.wxss setf css
-"au BufNewFile,BufRead *.wxml setf html
+au BufNewFile,BufRead *.wxss setf css
+au BufNewFile,BufRead *.wxml setf html
 "au BufNewFile,BufRead *.txt setf js
 set runtimepath^=~/.vim/bundle/ag
 
 "autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+autocmd FileType * setlocal tabstop=2 shiftwidth=2 expandtab
 

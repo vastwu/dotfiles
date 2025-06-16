@@ -8,6 +8,7 @@
     st = status
     bls = branch --list
     cin = commit --amend --no-edit
+    pm = fetch origin master:master
 [pull]
   rebase = false # leflow限制
 [push]

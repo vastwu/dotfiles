@@ -49,6 +49,15 @@ https://github.com/junegunn/vim-plug
 
 > all finished, have fun
 
+### install rg
+
+```bash
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo=https://copr.fedorainfracloud.org/coprs/carlwgeorge/ripgrep/repo/epel-7/carlwgeorge-ripgrep-epel-7.repo
+sudo yum install ripgrep
+```
+
+
 ## EXTENSION
 
 ### tmux
@@ -86,6 +95,43 @@ when on shell,
 * `s` split for new pane
 * `v` vertical split for new pane
 * `h,j,k,l` select pane like vim
+
+#### plugins
+* 安装
+```bash
+# 下载 tqm 到~/.tmux/plugins
+# tqm是tmux插件管理工具
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+# 进入相应位置
+cd ~/.tmux/plugins
+# 下载插件
+git clone https://github.com/tmux-plugins/tmux-resurrect.git # 保存tmux会话到disk
+git clone https://github.com/tmux-plugins/tmux-continuum.git # 定时保存，自动加载
+```
+
+* 在~/.tmux.conf中配置:
+```bash
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+​
+# 自动备份时间间隔60min, 默认15min
+set -g @continuum-save-interval '60'
+set -g @continuum-restore 'on'
+set -g @resurrect-capture-pane-contents 'on'
+​
+# Other config ...
+​
+run -b '~/.tmux/plugins/tpm/tpm'
+```
+* 重载配置
+```bash
+tmux source-file ~/.tmux.conf
+```
+* 指令
+    * 保存会话 `CTRL + b` + `CTRL + s`
+    * 加载会话 `CTRL + b` + `CTRL + r`
 
 ### Ag
 A plugin for vim search like vimgrep [Ag on github](https://github.com/rking/ag.vim)
