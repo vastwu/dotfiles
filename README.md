@@ -56,7 +56,14 @@ sudo yum install -y yum-utils
 sudo yum-config-manager --add-repo=https://copr.fedorainfracloud.org/coprs/carlwgeorge/ripgrep/repo/epel-7/carlwgeorge-ripgrep-epel-7.repo
 sudo yum install ripgrep
 ```
+到这里下载编译后的文件：https://github.com/BurntSushi/ripgrep/releases
 
+### install nvm
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+```
 
 ## EXTENSION
 
@@ -133,35 +140,4 @@ tmux source-file ~/.tmux.conf
     * 保存会话 `CTRL + b` + `CTRL + s`
     * 加载会话 `CTRL + b` + `CTRL + r`
 
-### Ag
-A plugin for vim search like vimgrep [Ag on github](https://github.com/rking/ag.vim)
 
-first must install [the_silver_searcher](https://github.com/ggreer/the_silver_searcher) by brew
-
-and load ag.vim by vundle
-
-finilly can use :Ag [options] key-word [dir] in vim
-
-it is fast than vimgrep
-
-### slate
-
-A app for mac, it can define some fast-key for some operate [slate on github](https://github.com/jigish/slate)
-
-quick install
-```
-cd /Applications && curl http://www.ninjamonkeysoftware.com/slate/versions/slate-latest.tar.gz | tar -xz
-```
-
-link `slate` to `~/.slate`
-
-### some command for my vim plugin
-```    
-    <c-p>: open ctrlp file search
-    <F2>: open nerdtree 
-```
-
-### install ctags
-```
-brew install --HEAD universal-ctags
-```

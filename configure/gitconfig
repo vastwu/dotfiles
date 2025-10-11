@@ -18,15 +18,22 @@
 [difftool]
     prompt = false
     trustExitCode = true
+[difftool "vimdiff"]
+    prompt = false
+    trustExitCode = true
+    cmd = "vimdiff -c 'set noloadplugins' -c 'set syntax=off' \"$LOCAL\" \"$REMOTE\""
 [http "https://git.code.oa.com"]
     proxy = http://127.0.0.1:12639
 [http "http://git.code.oa.com"]
     proxy = http://127.0.0.1:12639
 [core]
+  editor = vim
 	autocrlf = input
 	excludesfile = /Users/vastwu/.gitignore_global
 	longpaths = true
 	quotepath = off
+[sequence]
+  editor = vim
 [user]
 	name = vastwu
 	email = vastwu@tencent.com
@@ -39,3 +46,7 @@
 	uiLang = zh
 [oh-my-zsh]
 	hide-dirty = 1
+[credential]
+	helper = store
+[maintenance]
+	repo = /data/workspace/main

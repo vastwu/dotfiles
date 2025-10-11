@@ -1,5 +1,6 @@
 let $LANG = 'en'  "set message language
 set langmenu=en   "set menu's language of gvim. no spaces beside '='  Configuration file for vim
+
 set modelines=0		" CVE-2007-2438
 set t_Co=256
 set number
@@ -109,12 +110,17 @@ let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚡'
 "在vim自带的状态栏中整合ale
 let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
-let g:ale_javascript_eslint_options = '-c ~/.eslintrc'
+"let g:ale_javascript_eslint_options = '-c ~/.eslintrc'
 " let g:ale_javascript_eslint_use_global = 1
 " airline整合
 let g:airline#extensions#ale#enabled = 1
 "let b:ale_linters = ['eslint']
-let g:ale_linters = {'javascript': ['eslint', 'tsserver']}
+"let g:ale_linters = {'javascript': ['eslint', 'tsserver']}
+let g:ale_linters = {
+\  'javascript': ['eslint', 'tsserver'],
+\  'typescript': ['eslint', 'tsserver', 'typecheck'],
+\  'typescriptreact': ['eslint', 'tsserver', 'typecheck'],
+\ }
 " let g:ale_open_list = 1
 "显示Linter名称,出错或警告等相关信息
 "let g:ale_echo_msg_error_str = 'E'
@@ -203,26 +209,22 @@ xmap <leader>f  <Plug>(coc-format-selected)
 " https://git.woa.com/features/copilot?from=iSearch
 " shift + control + c
 imap <S-C-C> <Plug>(copilot-suggest)
+let g:copilot_no_tab_map=1
+imap <script><silent><nowait><expr> <C-l> copilot#Accept()
 
 " 按空格选择第一个提示并跟随一个空格(先关闭了，经常需要打空格时候会触发第一个选项)
 " inoremap <expr><space> pumvisible() ? coc#_select_confirm() . "\<SPACE>" : "\<SPACE>"
 " tab选下一个
 " 非弹窗状态下tab激活提示
-function! s:check_back_space() abort
+function! Check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ Check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-
-" 按回车确定使用snippets
-" http://npm.taobao.org/package/coc-snippets
-inoremap <silent><expr> <CR>
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ "\<CR>"
 
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
@@ -263,7 +265,10 @@ endfunction
 "}
 
 "Nerdtree{
+    "打开左侧窗口
     noremap <F2> :NERDTreeToggle<cr>
+    "定位到当前文件的目录
+    nnoremap <leader>f :NERDTreeFind<CR>
     let g:NERDTreeShowHidden = 1
     let g:NERDTreeIgnore = ['\.git$', '\.DS_Store', '\.swo', '\.vscode', '__pycache__'] 
     let g:NERDTree_title="[NERDTree]"
@@ -330,4 +335,16 @@ set runtimepath^=~/.vim/bundle/ag
 
 "autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 autocmd FileType * setlocal tabstop=2 shiftwidth=2 expandtab
+
+
+" function! DisableCocOnDiff()
+"   if &diff
+"     CocDisable
+"     set nospell  " 可选：关闭拼写检查等耗时功能
+"     set noloadplugins
+"     set syntax=off
+"   endif
+" endfunction
+" 
+" autocmd VimEnter * call DisableCocOnDiff()
 

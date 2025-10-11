@@ -3,7 +3,9 @@
   "javascript.showUnused": true,
   "javascript.autoClosingTags": true,
   "tsserver.enableJavascript": true,
+  "tsserver.maxTsServerMemory": 8192,
 
+  "typescript.tsserver.maxTsServerMemory": 8192,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "typescript.preferences.quoteStyle": "single", 
 
