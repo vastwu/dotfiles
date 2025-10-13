@@ -1,0 +1,14 @@
+# 设置会话名称, 适用于3.3版本以上
+SESSION_NAME="0"
+
+output=$(tmux has-session -t $SESSION_NAME 2>&1)
+
+# 检查会话是否存在
+if [ -n "$output" ]; then
+    # 如果会话存在，则附加到会话
+    tmux attach -t $SESSION_NAME
+else
+    # 如果会话不存在，则创建一个新会话
+    tmux new-session -u -d -s $SESSION_NAME -n "tmxu" -t 0
+    tmux attach -t $SESSION_NAME
+fi
