@@ -112,9 +112,9 @@ no_proxy=.wsd.com,mirrors.tencent.com,servicewechat.com,git.woa.com,zhiyan.monit
 
 export JAVA_HOME="/Users/vastwu/Library/java/jdk1.8.0_432.jdk/Contents/Home"
 export PATH=${JAVA_HOME}/bin:$PATH
-#export PATH=$PATH:/Users/vastwu/.fef/bin
 export PATH="$PATH:$HOME/.ft"
 export W2_PORT="8082"
+export LESSCHARSET=utf-8
 
 setopt no_nomatch
 #export FZF_DEFAULT_COMMAND="find . \( -path ./coverage -o -path ./docs -o -path ./node_modules -o -path ./.git -o -path ./dist \) -prune -o -type f -name '*'"
