@@ -13,6 +13,18 @@ we have to add a third-party PPA. Do this for a successful installation
     sudo apt-get update
     sudo apt-get install vim
 
+### 安装 nvim
+- https://github.com/neovim/neovim/releases
+展开 Assets 下载对应的版本
+
+一般来说linux载 x86，mac 下载 macos
+
+- .tar.gz 解压可用版本，解压后的目录/bin/nvim 为可执行文件
+- .appimage 直接可执行文件，需要+x 权限
+
+然后将可执行文件 link 到环境变量可执行目录中即可
+
+
 ### install zsh
 
     sudo apt-get install zsh
@@ -33,21 +45,6 @@ sh -c "$(fetch -o - https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 set zsh as default shell
 
     chsh -s /bin/zsh
-
-### install vim-plug
-
-```sh
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-```
-
-https://github.com/junegunn/vim-plug
-
-### install all vim plugin
-
-    vim
-    :PlugInstall
-
-> all finished, have fun
 
 ### install rg
 

@@ -1,5 +1,13 @@
-ln -s ./configure/vimrc ~/.vimrc
-ln -s ./configure/zshrc ~/.zshrc
-ln -s ./configure/gitconfig ~/.gitconfig
-ln -s ./configure/tmux.conf ~/.tmux.conf
-ln -s ./configure/coc-settings.json ~/.vim/coc-settings.json
+mkdir -p ~/.vim
+mkdir -p ~/.config/nvim
+
+ln -s /ams/dotfiles/configure/vimrc ~/.vimrc
+ln -s /ams/dotfiles/configure/zshrc ~/.zshrc
+ln -s /ams/dotfiles/configure/gitconfig ~/.gitconfig
+ln -s /ams/dotfiles/configure/tmux.conf ~/.tmux.conf
+ln -s /ams/dotfiles/configure/coc-settings.json ~/.vim/coc-settings.json
+
+ln -s /ams/dotfiles/configure/coc-settings.json ~/.config/nvim/coc-settings.json
+ln -s /ams/dotfiles/configure/nvim/init.lua ~/.config/nvim/init.lua
+ln -s /ams/dotfiles/configure/nvim/lua ~/.config/nvim/lua
+

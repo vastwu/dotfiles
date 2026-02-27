@@ -2,12 +2,11 @@
   "coc.preferences.jumpCommand": "tabe",
   "javascript.showUnused": true,
   "javascript.autoClosingTags": true,
-  "tsserver.enableJavascript": true,
-  "tsserver.maxTsServerMemory": 8192,
+  "tsserver.maxTsServerMemory": 4096,
 
-  "typescript.tsserver.maxTsServerMemory": 8192,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
-  "typescript.preferences.quoteStyle": "single", 
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+  "javasciprt.preferences.quoteStyle": "single", 
 
   "diagnostic.errorSign": "✖",
   "diagnostic.infoSign": "!!",
@@ -15,11 +14,9 @@
   "diagnostic.displayByAle": true,
 
   "suggest.noselect": true,
-  "suggest.floatEnable": true,
-  "suggest.enablePreview": true,
-  "suggest.detailField": "menu",
+  "suggest.detailField": "preview",
   "suggest.snippetIndicator": "",
-  "suggest.triggerCompletionWait": 800,
+  "suggest.triggerCompletionWait": 10,
   "suggest.completionItemKindLabels": {
     "default": "?",
     "method": "method",
@@ -29,7 +26,6 @@
     "interface": "interface",
     "enumMember": "enumMember"
   },
-  "snippets.ultisnips.pythonPrompt": false,
 
   "snippets.userSnippetsDirectory": "/Users/vastwu/.vim/coc-snippets"
 }
